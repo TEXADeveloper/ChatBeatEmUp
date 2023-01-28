@@ -115,7 +115,6 @@ public class ChatReader : MonoBehaviour
                 twitchClient.Close();
                 twitchClient.Dispose();
                 twitchClient = null;
-                Debug.Log($"<color=orange>Twitch Disconnected</color>");
             }
             catch { }
     }
