@@ -4,17 +4,20 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInput : MonoBehaviour
 {
+    [SerializeField] GameObject pausePanel;
     private Animator anim;
+    private PlayerController pc;
 
     public static event Action<Vector2> Movement;
     public static event Action Dash;
     float hMovement, vMovement = 0;
 
-    private bool animTriggered = false;
+    private bool animTriggered, paused = false;
 
     void Start()
     {
         anim = this.GetComponent<Animator>();
+        pc = this.GetComponent<PlayerController>();
     }
 
     void Update()
@@ -25,6 +28,7 @@ public class PlayerInput : MonoBehaviour
         shootInput();
         stabInput();
         quitInput();
+        restartInput();
     }
 
     private void moveInput()
@@ -88,7 +92,34 @@ public class PlayerInput : MonoBehaviour
 
     private void quitInput()
     {
-        if (Input.GetButtonDown("Cancel"))
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
+        if (Input.GetButtonDown("Cancel") && !paused && !pc.Died)
+        {
+            paused = true;
+            pausePanel.SetActive(paused);
+            Time.timeScale = 0;
+        } else if (Input.GetButtonDown("Cancel") && paused &&  !pc.Died)
+            Unpause();
+        else if (Input.GetButtonDown("Cancel") && pc.Died)
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void restartInput()
+    {
+        if (Input.GetButtonDown("Submit") && pc.Died)
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Unpause()
+    {
+        paused = false;
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
+    }
+
+    public void Quit()
+    {
+        paused = false;
+        Time.timeScale = 1;
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

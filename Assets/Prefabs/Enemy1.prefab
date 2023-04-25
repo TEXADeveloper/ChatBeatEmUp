@@ -270,7 +270,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSpeed: 1
   soundDelay: 0.55
-  faceDir: 1
 --- !u!114 &6582947328105574577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoint: {fileID: 1358542270953634423}
-  damage: 3
+  damage: 5
   attackArea: 0.2
   cooldown: 1.2
 --- !u!114 &7903340243599897416

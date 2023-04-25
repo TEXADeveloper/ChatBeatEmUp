@@ -8,13 +8,16 @@ public class BossMovement : MonoBehaviour
         private BossAI bAI;
     [Header("Movement")]
         [SerializeField, Range(0, 5f)] private float speed;
+        [SerializeField, Range(0, 5f)] private float escapingSpeed;
         private Vector2 dir = Vector2.zero;
+        bool escaping;
 
-    public void SetDir(Vector2 d)
+    public void SetDir(Vector2 d, bool isEscaping)
     {
         if (dir != d)
             dir = d;
         anim.SetBool("Running", dir != Vector2.zero);
+        escaping = isEscaping;
     }
 
     void Start()
@@ -26,6 +29,6 @@ public class BossMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = dir * speed;
+        rb.velocity = dir * ((escaping)? escapingSpeed : speed);
     }
 }

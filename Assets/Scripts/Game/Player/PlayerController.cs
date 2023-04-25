@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
+    public static event Action Death;
     [SerializeField] private DisplayHealth dh;
     private Animator anim;
     private PlayerMovement pm;
@@ -46,5 +48,6 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("Died", true);
         pm.enabled = false;
         pa.enabled = false;
+        Death?.Invoke();
     }
 }

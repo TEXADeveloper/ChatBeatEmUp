@@ -97,7 +97,7 @@ public class ChatReader : MonoBehaviour
             if (message.StartsWith("!" + c.CommandName + " ") || message.Equals("!" + c.CommandName))
                 return c;
             foreach (string s in c.Aliases)
-                if (message.StartsWith("!" + s) || message.Equals("!" + s))
+                if (message.StartsWith("!" + s + " ") || message.Equals("!" + s))
                     return c;
         }
         return null;

@@ -25,6 +25,8 @@ public class Bullet : MonoBehaviour
     {
         if (col.transform.CompareTag("Enemy"))
             col.gameObject.GetComponent<EnemyAI>().Hurt(damage, this.transform);
+        if (col.transform.CompareTag("Boss"))
+            col.gameObject.GetComponent<BossAI>().Hurt(damage, this.transform);
         if (col.transform.CompareTag("Barrel"))
             col.gameObject.GetComponent<Barrel>().Damaged(transform.position.x, this.transform);
         Destroy(this.gameObject);

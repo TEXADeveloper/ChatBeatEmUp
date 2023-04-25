@@ -20,6 +20,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if (col.transform.CompareTag("Enemy"))
                 col.GetComponent<EnemyAI>().Hurt(attackDamage, this.transform);
+            if (col.transform.CompareTag("Boss"))
+                col.GetComponent<BossAI>().Hurt(attackDamage, this.transform);
             if (col.transform.CompareTag("Barrel"))
                 col.gameObject.GetComponent<Barrel>().Damaged(transform.position.x, this.transform);
         } 
@@ -39,6 +41,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if (col.transform.CompareTag("Enemy"))
                 col.GetComponent<EnemyAI>().Hurt(stabDamage, this.transform);
+            if (col.transform.CompareTag("Boss"))
+                col.GetComponent<BossAI>().Hurt(attackDamage, this.transform);
             if (col.transform.CompareTag("Barrel"))
                 col.gameObject.GetComponent<Barrel>().Damaged(transform.position.x, this.transform);
         }

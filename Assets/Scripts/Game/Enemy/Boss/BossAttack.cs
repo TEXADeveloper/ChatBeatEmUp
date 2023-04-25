@@ -7,6 +7,7 @@ public class BossAttack : MonoBehaviour
         [SerializeField] private Transform shootPoint;
         private Transform bulletParent;
         private Animator anim;
+        private Transform player;
     [Header("Time")]
         [SerializeField, Range(0, 5f)] private float cooldown;
         private float timer;
@@ -27,6 +28,7 @@ public class BossAttack : MonoBehaviour
     {
         anim = this.GetComponent<Animator>();
         bulletParent = GameObject.Find("BulletParent").transform;
+        player = GameObject.Find("Player/Trail").transform;
     }
 
     void Update()
@@ -50,8 +52,8 @@ public class BossAttack : MonoBehaviour
     public void Shoot()
     {
         GameObject go = GameObject.Instantiate(projectile, shootPoint.position, Quaternion.identity, bulletParent);
-        float distance = go.transform.position.x - transform.position.x;
-        go.GetComponent<Bullet>().SetDir((distance > 0)? 1 : -1);
+        Debug.Log(go);
+        go.GetComponent<Projectile>().SetDir(player.position);
         attacking = false;
     }
 }

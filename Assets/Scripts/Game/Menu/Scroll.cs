@@ -11,13 +11,7 @@ public class Scroll : MonoBehaviour
     void Start()
     {
         input = this.GetComponent<TMP_InputField>();
-        if (gameConfig.configValues != null)
-            value = gameConfig.configValues[pos]; 
-        else
-        {
-            gameConfig.configValues = new int[4];
-            int.TryParse(input.text, out value); 
-        }    
+        value = gameConfig.configValues[pos]; 
         input.text = value.ToString();
     }
 
@@ -34,5 +28,7 @@ public class Scroll : MonoBehaviour
         int.TryParse(amount, out num);
         value = (num < 0)? 0 : num;
         gameConfig.configValues[pos] = value;
+        PlayerPrefs.SetInt((pos == 0)? "MaxEnemies" : (pos == 1)? "Cooldown" : (pos == 2)? "CooldownPerUser" : "EnemiesAtATime", value);
+        PlayerPrefs.Save();
     }
 }

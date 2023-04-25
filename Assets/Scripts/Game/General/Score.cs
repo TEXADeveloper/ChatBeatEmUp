@@ -4,7 +4,7 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     private TMP_Text text;
-    private int score = 0;
+    [HideInInspector] public int score = 0;
 
     public void AddScore()
     {

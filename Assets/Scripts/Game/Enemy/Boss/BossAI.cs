@@ -33,7 +33,10 @@ public class BossAI : MonoBehaviour
     void Update()
     {
         if (player == null || pc.Died)
+        {
+            bm.SetDir(Vector2.zero, false);
             return;
+        }
         if (move())
             return;
         shoot();
@@ -46,11 +49,11 @@ public class BossAI : MonoBehaviour
         flip(direction);
         if (!died && distance > shootDistance && !ba.IsAttacking() && ba.CanAttack())
         {
-            bm.SetDir(direction.normalized);
+            bm.SetDir(direction.normalized, false);
             return true;
         } else if (!died && !ba.IsAttacking() && (distance < runDistance || !ba.CanAttack()))
         {
-            bm.SetDir(-direction.normalized);
+            bm.SetDir(-direction.normalized, true);
             return true;
         }
         return false;
@@ -67,7 +70,7 @@ public class BossAI : MonoBehaviour
 
     private void shoot()
     {
-        bm.SetDir(Vector2.zero);
+        bm.SetDir(Vector2.zero, false);
         if (!died)
             ba.StartAttack();
     }

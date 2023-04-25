@@ -31,14 +31,14 @@ public class EnemySpawner : MonoBehaviour
     private void readCommand(ChatCommand command)
     {
         Debug.Log(command.command.CommandName);
-        if (command.command.CommandName == "spawn" && amount < gameConfig.configValues[0] && Time.time >= generalCooldown && (!cooldowns.ContainsKey(command.username) || Time.time >= cooldowns[command.username]))
+        if (command.command.CommandName == "spawn" && command.isReward == command.command.hasToBeReward && amount < gameConfig.configValues[0] && Time.time >= generalCooldown && (!cooldowns.ContainsKey(command.username) || Time.time >= cooldowns[command.username]))
         {
             for (int i = 0 ; i < gameConfig.configValues[3] ; i++)
                 spawnEnemy();
             generalCooldown = Time.time + gameConfig.configValues[1];
             cooldowns[command.username] = Time.time + gameConfig.configValues[2];
         }
-        if (command.command.CommandName == "spawnboss" && command.isReward && amount < gameConfig.configValues[0] && (!cooldowns.ContainsKey(command.username) || Time.time >= cooldowns[command.username]))
+        if (command.command.CommandName == "spawnboss" && command.isReward == command.command.hasToBeReward && amount < gameConfig.configValues[0] && (!cooldowns.ContainsKey(command.username) || Time.time >= cooldowns[command.username]))
         {
             spawnReward();
             cooldowns[command.username] = Time.time + gameConfig.configValues[2];

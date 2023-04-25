@@ -39,7 +39,10 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         if (player == null || pc.Died)
+        {
+            em.SetDir(Vector2.zero);
             return;
+        }
         if (pushing)
         {
             push();
